@@ -106,7 +106,6 @@ export default async (
       ) || 0;
 
     const servingValue = splitGeneralInfoString[0]
-      .replace(",", ".")
       .replace("   ", "")
       .replace(" g ", "g")
       .replace(" g", "g")
