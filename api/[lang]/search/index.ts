@@ -68,10 +68,8 @@ export default async (
     const splitGeneralInfoString = splitSection[0].split("-");
     const generalInfo = splitGeneralInfoString[1].split("|");
     
-    const protein =
-      +generalInfo[3]
-        .replace(langConfig.measurementRegex.protein, "")
-        .replace(",", ".") || 0;
+    const calories =
+      +generalInfo[0].replace(langConfig.measurementRegex.calories, "") || 0;
 
     const fat =
       +generalInfo[1]
@@ -83,15 +81,16 @@ export default async (
         .replace(langConfig.measurementRegex.carb, "")
         .replace(",", ".") || 0;
 
-    const calories =
-      +generalInfo[0].replace(langConfig.measurementRegex.calories, "") || 0;
+    const protein =
+      +generalInfo[3]
+        .replace(langConfig.measurementRegex.protein, "")
+        .replace(",", ".") || 0;
 
     // Search other serving method
     const otherServing: ServingList[] = [];
     if (splitSection[1]) {
       const val = splitSection[1].split(",");
       val.pop();
-
       val.forEach((vl) => {
         const normalize = vl.split("-");
         otherServing.push({
@@ -104,10 +103,10 @@ export default async (
     }
     items.push({
       title: linkText,
-      protein,
+      calories,
       fat,
       carb,
-      calories,
+      protein,
       otherServing,
       serving: splitGeneralInfoString[0],
     });
