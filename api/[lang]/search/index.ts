@@ -113,8 +113,7 @@ export default async (
   });
 
   const searchSum = $(".searchResultSummary").text().split(" ");
-  const searchSumText = $(".searchResultSummary").text();
-  const total = parseInt(searchSumText.replace(/\D/g, ""));
+  const total = parseInt(searchSum[4]);
   const endOfPage = total === parseInt(searchSum[2]);
   const startOfPage = page < 1;
   const next = endOfPage ? 0 : parseInt(page) + 1;
