@@ -111,7 +111,7 @@ export default async (
       calories,
       otherServing,
       serving: splitGeneralInfoString[0],
-      
+    });
   });
 
   const searchSum = $(".searchResultSummary").text().split(" ");
@@ -131,4 +131,3 @@ export default async (
   response.setHeader("Cache-Control", "s-maxage=100, stale-while-revalidate");
   response.json(data);
 };
-
