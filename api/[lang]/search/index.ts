@@ -52,6 +52,8 @@ export default async (
     q: query,
     pg: page,
   });
+  console.log(html); // 이 부분을 추가
+  
   const $ = cheerio.load(html);
   const items: FoundList[] = [];
 
