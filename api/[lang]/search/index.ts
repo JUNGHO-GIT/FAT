@@ -3,13 +3,9 @@ import cheerio from "cheerio";
 import { fetchHTML } from "../../../utils/fetch";
 import { getLang } from "../../../utils/lang";
 
-interface ServingList {
-  name: string;
-  calories: number;
-}
-
 interface FoundList {
   title: string;
+  brand: string;
   calories: any;
   fat: any;
   carb: any;
@@ -54,7 +50,11 @@ export default async (
   $("table.generic.searchResult td.borderBottom").each((_: any, elem: any) => {
     const element = $(elem);
     const title = element.find("a.prominent");
-    const linkText = title.text();
+    const brand = element.find("a.bland");
+
+    const linkTitle = title.text();
+    const linkBrand = brand.text();
+
     const normalizeText = element
       .find("div.smallText.greyText.greyLink")
       .text()
@@ -104,7 +104,8 @@ export default async (
       .trim()
 
     items.push ({
-      title: linkText,
+      title: linkTitle,
+      brand: linkBrand,
       calories,
       fat,
       carb,
