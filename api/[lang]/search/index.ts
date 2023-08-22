@@ -115,7 +115,7 @@ export default async (
       fat,
       carb,
       protein,
-      serving: splitGeneralInfoString[0],
+      serving: servingValue,
     });
   });
 
