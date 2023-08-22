@@ -21,10 +21,10 @@ export const languanges: LanguageConfig[] = [{
   otherSizes:  "다른 크기:",
   caloriesPrefix: "칼로리:",
   measurementRegex: {
-    calories: /칼로리:|kcal/g,
-    carb: /탄수화물:|g/g,
-    fat: /지방:|g/g,
-    protein: /단백질:|g/g,
+    calories: /칼로리: |kcal/g,
+    carb: /탄수화물: |g/g,
+    fat: /지방: |g/g,
+    protein: /단백질: |g/g,
   }
 }];
 
