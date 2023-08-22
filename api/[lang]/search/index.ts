@@ -11,7 +11,6 @@ interface ServingList {
 interface FoundList {
   title: string;
   serving: string;
-  otherServing: ServingList[];
   calories: number;
   fat: any;
   carb: any;
@@ -19,7 +18,6 @@ interface FoundList {
 }
 
 interface DataResponse {
-  notes: string;
   items: FoundList[];
   next: number;
   prev: number;
@@ -32,11 +30,9 @@ export default async (
   response: VercelResponse
 )
 : Promise<void> => {
-    const url = request.headers["x-forwarded-host"];
-    const proto = request.headers["x-forwarded-proto"];
-    const query: any = request.query.query;
-    const page: any = +request.query.page || 0;
-    const langConfig = getLang(String(request.query.lang));
+  const query: any = request.query.query;
+  const page: any = +request.query.page || 0;
+  const langConfig = getLang(String(request.query.lang));
 
   if (!langConfig) {
     response.json({ error: `${request.query.lang} are not supported` });
@@ -52,16 +48,13 @@ export default async (
     q: query,
     pg: page,
   });
-  
-  
   const $ = cheerio.load(html);
   const items: FoundList[] = [];
 
-  $("table.generic.searchResult td.borderBottom").each((_, elem: any) => {
+  $("table.generic.searchResult td.borderBottom").each((_: any, elem: any) => {
     const element = $(elem);
     const title = element.find("a.prominent");
     const linkText = title.text();
-    const detailLink = title.attr("href");
     const normalizeText = element
       .find("div.smallText.greyText.greyLink")
       .text()
@@ -86,33 +79,16 @@ export default async (
       .replace(",", ".") || 0;
 
     const protein =
-      +generalInfo[3]
+      generalInfo[3]
       .replace(langConfig.measurementRegex.protein, "")
       .replace(",", ".") || 0;
-      console.log(generalInfo[3])
     
-    // Search other serving method
-    const otherServing: ServingList[] = [];
-    if (splitSection[1]) {
-      const val = splitSection[1].split(",");
-      val.pop();
-      val.forEach((vl: string) => {
-        const normalize = vl.split("-");
-        otherServing.push({
-          name: normalize[0] ? normalize[0] : "No Name",
-          calories: normalize[1]
-            ? +normalize[1].replace(langConfig.caloriesPrefix, "")
-            : 0,
-        });
-      });
-    }
-    items.push({
+    items.push ({
       title: linkText,
       calories,
       fat,
       carb,
       protein,
-      otherServing,
       serving: splitGeneralInfoString[0],
     });
   });
