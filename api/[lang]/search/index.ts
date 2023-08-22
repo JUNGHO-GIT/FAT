@@ -69,7 +69,7 @@ export default async (
     const generalInfo = splitGeneralInfoString[1].split("|");
     
     const protein =
-      +generalInfo[0]
+      +generalInfo[3]
         .replace(langConfig.measurementRegex.protein, "")
         .replace(",", ".") || 0;
 
@@ -84,7 +84,7 @@ export default async (
         .replace(",", ".") || 0;
 
     const calories =
-      +generalInfo[3].replace(langConfig.measurementRegex.calories, "") || 0;
+      +generalInfo[0].replace(langConfig.measurementRegex.calories, "") || 0;
 
     // Search other serving method
     const otherServing: ServingList[] = [];
