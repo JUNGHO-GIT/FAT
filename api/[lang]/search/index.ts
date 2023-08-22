@@ -3,6 +3,11 @@ import cheerio from "cheerio";
 import { fetchHTML } from "../../../utils/fetch";
 import { getLang } from "../../../utils/lang";
 
+interface ServingList {
+  name: string;
+  calories: number;
+}
+
 interface FoundList {
   title: string;
   brand: string;
@@ -11,6 +16,7 @@ interface FoundList {
   carb: any;
   protein: any;
   serving: string;
+  detailLink: string;
 }
 
 interface DataResponse {
@@ -24,8 +30,7 @@ interface DataResponse {
 export default async (
   request: VercelRequest,
   response: VercelResponse
-)
-: Promise<void> => {
+): Promise<void> => {
   const query: any = request.query.query;
   const page: any = +request.query.page || 0;
   const langConfig = getLang(String(request.query.lang));
@@ -56,6 +61,7 @@ export default async (
     const linkTitle = title.text();
     const linkBrand = brand.text();
 
+    const detailLink = title.attr("href");
     const normalizeText = element
       .find("div.smallText.greyText.greyLink")
       .text()
@@ -65,46 +71,62 @@ export default async (
     const splitGeneralInfoString = splitSection[0].split("-");
     const generalInfo = splitGeneralInfoString[1].split("|");
 
-    const calories = parseFloat (
-      generalInfo[0]
-      .replace(langConfig.measurementRegex.calories, "")
-      .replace(",", ".")
-      .trim()
-    ) || 0;
+    const calories =
+      parseFloat(
+        generalInfo[0]
+          .replace(langConfig.measurementRegex.calories, "")
+          .replace(",", ".")
+          .trim()
+      ) || 0;
 
-    const fat = parseFloat (
-      generalInfo[1]
-      .replace(langConfig.measurementRegex.fat, "")
-      .replace(",", ".")
-      .trim()
-    ) || 0;
+    const fat =
+      parseFloat(
+        generalInfo[1]
+          .replace(langConfig.measurementRegex.fat, "")
+          .replace(",", ".")
+          .trim()
+      ) || 0;
 
-    const carb = parseFloat (
-      generalInfo[2]
-      .replace(langConfig.measurementRegex.carb, "")
-      .replace(",", ".")
-      .trim()
-    ) || 0;
+    const carb =
+      parseFloat(
+        generalInfo[2]
+          .replace(langConfig.measurementRegex.carb, "")
+          .replace(",", ".")
+          .trim()
+      ) || 0;
 
-    const protein = parseFloat (
-      generalInfo[3]
-      .replace(langConfig.measurementRegex.protein, "")
-      .replace("영양 정보", "")
-      .replace("다른 크기:", "")
-      .replace(",", ".")
-      .trim()
-    ) || 0;
+    const protein =
+      parseFloat(
+        generalInfo[3]
+          .replace(langConfig.measurementRegex.protein, "")
+          .replace("영양 정보", "")
+          .replace("다른 크기:", "")
+          .replace(",", ".")
+          .trim()
+      ) || 0;
 
     const servingValue = splitGeneralInfoString[0]
-      .replace(",", ".").replace("   ", "")
-      .replace(" g ", "g").replace(" g", "g").replace("g ", "g")
-      .replace(" ( ", "(").replace(" (", "(").replace(") ", ")")
-      .replace(" ' ", "'").replace(" '", "'").replace("' ", "'")
-      .replace("당 '", "'").replace(" 당 ", "").replace("당 ", "").replace(" 당", "")
-      .replace(" 인 ", "인").replace(" 인", "인").replace("인 ", "인")
-      .trim()
+      .replace(",", ".")
+      .replace("   ", "")
+      .replace(" g ", "g")
+      .replace(" g", "g")
+      .replace("g ", "g")
+      .replace(" ( ", "(")
+      .replace(" (", "(")
+      .replace(") ", ")")
+      .replace(" ' ", "'")
+      .replace(" '", "'")
+      .replace("' ", "'")
+      .replace("당 '", "'")
+      .replace(" 당 ", "")
+      .replace("당 ", "")
+      .replace(" 당", "")
+      .replace(" 인 ", "인")
+      .replace(" 인", "인")
+      .replace("인 ", "인")
+      .trim();
 
-    items.push ({
+    items.push({
       title: linkTitle,
       brand: linkBrand,
       calories,
@@ -112,6 +134,9 @@ export default async (
       carb,
       protein,
       serving: servingValue,
+      detailLink: `${proto}://${url}/api/${
+        langConfig.lang
+      }/detail?url=${encodeURIComponent(detailLink)}`,
     });
   });
 
