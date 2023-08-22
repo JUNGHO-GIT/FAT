@@ -10,11 +10,11 @@ interface ServingList {
 
 interface FoundList {
   title: string;
-  serving: string;
-  calories: number;
+  calories: any;
   fat: any;
   carb: any;
   protein: any;
+  serving: string;
 }
 
 interface DataResponse {
@@ -94,6 +94,19 @@ export default async (
       .trim()
     ) || 0;
 
+    const servingValue = splitGeneralInfoString[0]
+      .replace(",", ".")
+      .replace(" g", "g")
+      .replace("g ", "g")
+      .replace(" (", "(")
+      .replace(") ", ")")
+      .replace(" '", "'")
+      .replace("' ", "'")
+      .replace("당 '", "'")
+      .replace("당 ", "")
+      .replace(" 당", "")
+      .replace("   ", "")
+      .trim()
 
 
     items.push ({
