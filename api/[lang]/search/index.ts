@@ -15,8 +15,8 @@ interface FoundList {
   fat: any;
   carb: any;
   protein: any;
-  serving: string;
-  detailLink: string;
+  serving: any;
+  detailLink: any;
 }
 
 interface DataResponse {
