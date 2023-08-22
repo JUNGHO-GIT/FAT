@@ -81,8 +81,11 @@ export default async (
     const protein =
       generalInfo[3]
       .replace(langConfig.measurementRegex.protein, "")
+      .replace("영양 정보", "")
+      .replace("다른 크기:", "")
       .replace(",", ".")
       .trim() || 0;
+
 
 
     items.push ({
