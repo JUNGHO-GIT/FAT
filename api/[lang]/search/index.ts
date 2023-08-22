@@ -15,8 +15,8 @@ interface FoundList {
   fat: any;
   carb: any;
   protein: any;
-  serving: any;
-  detailLink: any;
+  serving: string;
+  detailLink: string;
 }
 
 interface DataResponse {
@@ -31,10 +31,11 @@ export default async (
   request: VercelRequest,
   response: VercelResponse
 ): Promise<void> => {
+  const url = request.headers["x-forwarded-host"];
+  const proto = request.headers["x-forwarded-proto"];
   const query: any = request.query.query;
   const page: any = +request.query.page || 0;
   const langConfig = getLang(String(request.query.lang));
-
   if (!langConfig) {
     response.json({ error: `${request.query.lang} are not supported` });
     return;
@@ -106,6 +107,7 @@ export default async (
       ) || 0;
 
     const servingValue = splitGeneralInfoString[0]
+      .replace(",", ".")
       .replace("   ", "")
       .replace(" g ", "g")
       .replace(" g", "g")
