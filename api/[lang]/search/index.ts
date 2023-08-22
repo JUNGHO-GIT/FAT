@@ -52,7 +52,7 @@ export default async (
     q: query,
     pg: page,
   });
-  console.log(html); // 이 부분을 추가
+  
   
   const $ = cheerio.load(html);
   const items: FoundList[] = [];
@@ -89,6 +89,7 @@ export default async (
       +generalInfo[3]
       .replace(langConfig.measurementRegex.protein, "")
       .replace(",", ".") || 0;
+      console.log(generalInfo[3])
     
     // Search other serving method
     const otherServing: ServingList[] = [];
