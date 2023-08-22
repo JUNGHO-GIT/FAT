@@ -16,7 +16,6 @@ interface FoundList {
   fat: number;
   carbo: number;
   protein: number;
-  detailLink: string;
 }
 
 interface DataResponse {
@@ -112,10 +111,7 @@ export default async (
       calories,
       otherServing,
       serving: splitGeneralInfoString[0],
-      detailLink: `${proto}://${url}/api/${
-        langConfig.lang
-      }/detail?url=${encodeURIComponent(detailLink)}`,
-    });
+      
   });
 
   const searchSum = $(".searchResultSummary").text().split(" ");
