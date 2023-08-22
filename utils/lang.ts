@@ -36,10 +36,10 @@ export const languanges: LanguageConfig[] = [
     otherSizes: "Other sizes:", 
     caloriesPrefix: "kcal", 
     measurementRegex: { 
-       carb: /당:|g/g, 
+       carb: /탄수화물:|g/g, 
        protein: /단백질:|g/g, 
        fat: /지방:|g/g, 
-       calories: /칼로리:|kcal/g,  
+       calories: /Cal:|kcal/g,  
     },
   },
 ];
