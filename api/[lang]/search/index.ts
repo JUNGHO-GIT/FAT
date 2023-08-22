@@ -87,6 +87,9 @@ export default async (
       +generalInfo[3]
       .replace(langConfig.measurementRegex.protein, "")
       .replace(",", ".") || 0;
+    
+    console.log('generalInfo[3]:', generalInfo[3]);
+    console.log('Replaced value:', generalInfo[3].replace(langConfig.measurementRegex.protein, ""));
 
     // Search other serving method
     const otherServing: ServingList[] = [];
