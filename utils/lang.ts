@@ -33,13 +33,13 @@ export const languanges: LanguageConfig[] = [
     baseUrl: "https://www.fatsecret.kr",
     menuUrl: "https://www.fatsecret.kr/칼로리-영양소",
     searchUrl: "https://www.fatsecret.kr/칼로리-영양소/search",
-    otherSizes: "다른크기 :",
-    caloriesPrefix: "kcal",
-    measurementRegex: {
-      carb: /탄수화물:|g/g,
-      protein: /단백질:|g/g,
-      fat: /지방:|g/g,
-      calories: /칼로리:|kcal/g,
+    otherSizes: "Other sizes:", 
+    caloriesPrefix: "kcal", 
+    measurementRegex: { 
+       carb: /Carbs:|g/g, 
+       protein: /Protein:|g/g, 
+       fat: /Fat:|g/g, 
+       calories: /Calories:|kcal/g,  
     },
   },
 ];
