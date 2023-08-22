@@ -14,7 +14,7 @@ interface FoundList {
   otherServing: ServingList[];
   calories: number;
   fat: number;
-  carbo: number;
+  carb: number;
   protein: number;
 }
 
@@ -76,7 +76,7 @@ export default async (
         .replace(langConfig.measurementRegex.fat, "")
         .replace(",", ".") || 0;
 
-    const carbo =
+    const carb =
       +generalInfo[2]
         .replace(langConfig.measurementRegex.carb, "")
         .replace(",", ".") || 0;
@@ -102,12 +102,11 @@ export default async (
         });
       });
     }
-
     items.push({
       title: linkText,
       protein,
       fat,
-      carbo,
+      carb,
       calories,
       otherServing,
       serving: splitGeneralInfoString[0],
@@ -121,7 +120,6 @@ export default async (
   const next = endOfPage ? 0 : parseInt(page) + 1;
   const prev = startOfPage ? 0 : parseInt(page) - 1;
   const data: DataResponse = {
-    notes: "The measurement used for protein, fat, carbo, are in g(gram)",
     items,
     total,
     prev,
