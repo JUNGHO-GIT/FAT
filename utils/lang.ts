@@ -18,15 +18,16 @@ export const languanges: LanguageConfig[] = [{
   baseUrl: "https://www.fatsecret.kr",
   menuUrl: "https://www.fatsecret.kr/칼로리-영양소",
   searchUrl: "https://www.fatsecret.kr/칼로리-영양소/search",
-  otherSizes:  "기타 제공량",
-  caloriesPrefix: "칼로리:",
+  otherSizes: "서빙 사이즈",
+  caloriesPrefix: "kcal",
   measurementRegex: {
-    calories: /칼로리:|kcal/g,
-    carb: /탄수화물:|g/g,
-    fat: /지방:|g/g,
-    protein: /단백질:|g/g,
+    calories: /열량.*?(\d+)\s*kJ.*?(\d+)\s*kcal/g,  
+    carb: /탄수화물.*?(\d+\.?\d*)g/g,    
+    fat: /지방.*?(\d+\.?\d*)g/g,
+    protein: /단백질.*?(\d+\.?\d*)g/g
   }
 }];
+
 
 export function getLang(langCode: string): LanguageConfig | null {
   const lang = languanges.filter((lg) => lg.lang === langCode)[0];
