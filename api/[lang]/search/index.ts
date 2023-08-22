@@ -67,9 +67,11 @@ export default async (
     const splitSection = normalizeText.split(langConfig.otherSizes);
     const splitGeneralInfoString = splitSection[0].split("-");
     const generalInfo = splitGeneralInfoString[1].split("|");
-
-    const calories =
-      +generalInfo[0].replace(langConfig.measurementRegex.calories, "") || 0;
+    
+    const protein =
+      +generalInfo[0]
+        .replace(langConfig.measurementRegex.protein, "")
+        .replace(",", ".") || 0;
 
     const fat =
       +generalInfo[1]
@@ -81,10 +83,8 @@ export default async (
         .replace(langConfig.measurementRegex.carb, "")
         .replace(",", ".") || 0;
 
-    const protein =
-      +generalInfo[3]
-        .replace(langConfig.measurementRegex.protein, "")
-        .replace(",", ".") || 0;
+    const calories =
+      +generalInfo[3].replace(langConfig.measurementRegex.calories, "") || 0;
 
     // Search other serving method
     const otherServing: ServingList[] = [];
@@ -114,8 +114,8 @@ export default async (
   });
 
   const searchSum = $(".searchResultSummary").text().split(" ");
-const searchSumText = $(".searchResultSummary").text();
-const total = parseInt(searchSumText.replace(/\D/g, ''));
+  const searchSumText = $(".searchResultSummary").text();
+  const total = parseInt(searchSumText.replace(/\D/g, ""));
   const endOfPage = total === parseInt(searchSum[2]);
   const startOfPage = page < 1;
   const next = endOfPage ? 0 : parseInt(page) + 1;
