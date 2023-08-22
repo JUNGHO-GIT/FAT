@@ -29,17 +29,17 @@ export const languanges: LanguageConfig[] = [
     }
   },
   {
-    lang: 'id',
-    baseUrl: 'https://www.fatsecret.co.id',
-    menuUrl: 'https://www.fatsecret.co.id/kalori-gizi',
-    searchUrl: 'https://www.fatsecret.co.id/kalori-gizi/search',
-    otherSizes: 'Ukuran Lainnya:',
-    caloriesPrefix: 'kkal',
+    lang: 'ko',
+    baseUrl: 'https://www.fatsecret.kr',
+    menuUrl: 'https://www.fatsecret.kr/칼로리-영양소',
+    searchUrl: 'https://www.fatsecret.kr/칼로리-영양소/search',
+    otherSizes: '다른크기 :',
+    caloriesPrefix: 'kcal',
     measurementRegex: {
-      carb: /Karb:|g/g,
-      protein: /Prot:|g/g,
-      fat: /Lemak:|g/g,
-      calories: /Kalori:|kkal/g
+      carb: /탄수화물:|g/g,
+      protein: /단백질:|g/g,
+      fat: /지방:|g/g,
+      calories: /칼로리:|kkal/g
     }
   }
 ]
