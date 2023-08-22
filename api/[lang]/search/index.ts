@@ -64,27 +64,35 @@ export default async (
     const splitGeneralInfoString = splitSection[0].split("-");
     const generalInfo = splitGeneralInfoString[1].split("|");
 
-    const calories =
-      +generalInfo[0]
-      .replace(langConfig.measurementRegex.calories, "") || 0;
+    const calories = parseFloat (
+      generalInfo[0]
+      .replace(langConfig.measurementRegex.calories, "")
+      .replace(",", ".")
+      .trim()
+    ) || 0;
 
-    const fat =
-      +generalInfo[1]
+    const fat = parseFloat (
+      generalInfo[1]
       .replace(langConfig.measurementRegex.fat, "")
-      .replace(",", ".") || 0;
+      .replace(",", ".")
+      .trim()
+    ) || 0;
 
-    const carb =
-      +generalInfo[2]
+    const carb = parseFloat (
+      generalInfo[2]
       .replace(langConfig.measurementRegex.carb, "")
-      .replace(",", ".") || 0;
+      .replace(",", ".")
+      .trim()
+    ) || 0;
 
-    const protein =
+    const protein = parseFloat (
       generalInfo[3]
       .replace(langConfig.measurementRegex.protein, "")
       .replace("영양 정보", "")
       .replace("다른 크기:", "")
       .replace(",", ".")
-      .trim() || 0;
+      .trim()
+    ) || 0;
 
 
 
