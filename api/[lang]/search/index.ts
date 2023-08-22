@@ -81,8 +81,10 @@ export default async (
     const protein =
       generalInfo[3]
       .replace(langConfig.measurementRegex.protein, "")
-      .replace(",", ".") || 0;
-    
+      .replace(",", ".")
+      .trim() || 0;
+
+
     items.push ({
       title: linkText,
       calories,
