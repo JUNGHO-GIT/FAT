@@ -95,19 +95,13 @@ export default async (
     ) || 0;
 
     const servingValue = splitGeneralInfoString[0]
-      .replace(",", ".")
-      .replace(" g", "g")
-      .replace("g ", "g")
-      .replace(" (", "(")
-      .replace(") ", ")")
-      .replace(" '", "'")
-      .replace("' ", "'")
-      .replace("당 '", "'")
-      .replace("당 ", "")
-      .replace(" 당", "")
-      .replace("   ", "")
+      .replace(",", ".").replace("   ", "")
+      .replace(" g ", "g").replace(" g", "g").replace("g ", "g")
+      .replace(" ( ", "(").replace(" (", "(").replace(") ", ")")
+      .replace(" ' ", "'").replace(" '", "'").replace("' ", "'")
+      .replace("당 '", "'").replace(" 당 ", "").replace("당 ", "").replace(" 당", "")
+      .replace(" 인 ", "인").replace(" 인", "인").replace("인 ", "인")
       .trim()
-
 
     items.push ({
       title: linkText,
