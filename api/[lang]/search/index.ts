@@ -49,8 +49,9 @@ export default async (
 
   $("table.generic.searchResult td.borderBottom").each((_: any, elem: any) => {
     const element = $(elem);
+
     const title = element.find("a.prominent");
-    const brand = element.find("a.bland");
+    const brand = element.find("a.brand");
 
     const linkTitle = title.text();
     const linkBrand = brand.text();
